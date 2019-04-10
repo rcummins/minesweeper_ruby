@@ -6,7 +6,16 @@ class Board
     attr_reader :grid
 
     def initialize
-        @grid = Array.new(9) { Array.new(9) { Tile.new } }
+        @grid = Array.new(9) { Array.new(9) }
+        populate_grid_with_tiles
+    end
+
+    def populate_grid_with_tiles
+        @grid.each_index do |row|
+            @grid[row].each_index do |column|
+                @grid[row][column] = Tile.new(self, row, column)
+            end
+        end
     end
 
     def add_bombs_to_grid

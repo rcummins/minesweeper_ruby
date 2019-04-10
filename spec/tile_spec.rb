@@ -4,7 +4,8 @@ require 'RSpec'
 require 'tile'
 
 describe 'Tile' do
-    let(:tile) { Tile.new }
+    let(:board) { Board.new }
+    let(:tile) { Tile.new(board, 1, 1) }
 
     describe '#initialize' do
         it 'sets the instance variable @has_bomb to false' do
@@ -17,6 +18,18 @@ describe 'Tile' do
 
         it 'sets the instance variable @flagged to false' do
             expect(tile.flagged?).to eq(false)
+        end
+
+        it 'sets the instance variable @board to a Board object' do
+            expect(tile.board.class).to eq(Board)
+        end
+
+        it 'sets the instance variable @row to the expected value' do
+            expect(tile.row).to eq(1)
+        end
+
+        it 'sets the instance variable @column to the expected value' do
+            expect(tile.column).to eq(1)
         end
     end
 

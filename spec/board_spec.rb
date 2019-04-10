@@ -17,6 +17,18 @@ describe 'Board' do
         it 'sets @grid to a 2D array containing tiles' do
             expect(board.grid[0][0].class).to eq(Tile)
         end
+
+        it 'passes the correct row and column to each tile' do
+            row_col_match = []
+            board.grid.each_index do |row|
+                board.grid[row].each_index do |column|
+                    row_col_match << board.grid[row][column].row == row
+                    row_col_match << board.grid[row][column].column == column
+                end
+            end
+            expect(row_col_match.all?).to eq(true)
+            expect(row_col_match.length).to eq(162)
+        end
     end
 
     describe '#add_bombs_to_grid' do

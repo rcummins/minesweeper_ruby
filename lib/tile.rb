@@ -1,10 +1,17 @@
 # implement the Tile class for the minesweeper game
 
+require_relative 'board'
+
 class Tile
-    def initialize
+    attr_reader :board, :row, :column
+
+    def initialize(board, row, column)
         @has_bomb = false
         @revealed = false
         @flagged = false
+        @board = board
+        @row = row
+        @column = column
     end
 
     def has_bomb?
