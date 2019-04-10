@@ -30,6 +30,39 @@ class Board
         @grid.flatten.count { |tile| tile.has_bomb? }
     end
 
+    def reveal_tile_and_neighbors(row, column)
+        tiles_to_reveal = [@grid[row][column]]
+
+        # find all neighbors and neighbors of neighbors up to the fringe
+        new_neighbor_found = true
+        while new_neighbor_found
+            new_neighbor_found = false
+
+            tiles_to_reveal.each do |tile|
+                next if tile.neighbor_bomb_count > 0
+
+                possible_new_neighbors = tile.neighbors
+
+                possible_new_neighbors.each do |possible_new_neighbor|
+                    check_1 = possible_new_neighbor.has_bomb?
+                    check_2 = tiles_to_reveal.include?(possible_new_neighbor)
+
+                    unless check_1 || check_2
+                        tiles_to_reveal << possible_new_neighbor
+                        new_neighbor_found = true
+                    end
+                end
+            end
+        end
+
+        # reveal this tile and all neighboring tiles up to the fringe
+        tiles_to_reveal.each { |tile| tile.reveal }
+    end
+
+    def reveal_whole_board
+        @grid.flatten.each { |tile| tile.reveal }
+    end
+
     def display
         # print the column labels
         puts '  0 1 2 3 4 5 6 7 8'
