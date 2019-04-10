@@ -62,6 +62,10 @@ class Tile
         return all_neighbors
     end
 
+    def neighbor_bomb_count
+        neighbors.count { |tile| tile.has_bomb? }
+    end
+
     def inspect
         output = ''
         output += "row: #{@row}, "

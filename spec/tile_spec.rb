@@ -141,4 +141,17 @@ describe 'Tile' do
             expect(neighbors[7].column).to eq(5)
         end
     end
+
+    describe '#neighbor_bomb_count' do
+        it 'returns zero when there are no bombs on the board' do
+            expect(board.bomb_count).to eq(0)
+            expect(tile.neighbor_bomb_count).to eq(0)
+        end
+
+        it 'returns 1 when one bomb as been placed in a neighboring tile' do
+            board.grid[2][2].add_bomb
+            expect(board.bomb_count).to eq(1)
+            expect(tile.neighbor_bomb_count).to eq(1)
+        end
+    end
 end
