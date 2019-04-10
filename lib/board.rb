@@ -29,4 +29,22 @@ class Board
     def bomb_count
         @grid.flatten.count { |tile| tile.has_bomb? }
     end
+
+    def display
+        # print the column labels
+        puts '  0 1 2 3 4 5 6 7 8'
+
+        @grid.each_with_index do |row, row_num|
+            # print the row label
+            print "#{row_num} "
+
+            # print the tiles depending on if they are flagged or revealed
+            row.each_index do |column_num|
+                print @grid[row_num][column_num].display
+                print ' ' if column_num < 8
+            end
+
+            puts ''
+        end
+    end
 end

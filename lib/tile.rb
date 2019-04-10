@@ -76,4 +76,18 @@ class Tile
         output += "\n"
         return output
     end
+
+    def display
+        if @flagged == true
+            'F'
+        elsif @revealed == true && @has_bomb == true
+            '*'
+        elsif @revealed == true && neighbor_bomb_count > 0
+            neighbor_bomb_count.to_s
+        elsif @revealed == true && neighbor_bomb_count == 0
+            '_'
+        else
+            '?'
+        end
+    end
 end
