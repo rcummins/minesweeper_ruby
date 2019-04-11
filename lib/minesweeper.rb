@@ -31,7 +31,7 @@ class Minesweeper
     end
 
     def won?
-        @board.all_bomb_free_tiles_revealed?
+        @board.all_bomb_free_tiles_revealed? && !@board.bomb_revealed?
     end
 
     def game_over?
