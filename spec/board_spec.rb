@@ -70,6 +70,17 @@ describe 'Board' do
         end
     end
 
+    describe '#flagged?' do
+        it 'returns true if the tile at the given location is flagged' do
+            board.grid[0][0].flag
+            expect(board.flagged?(0, 0)).to eq(true)
+        end
+
+        it 'returns false if the tile at the given location is not flagged' do
+            expect(board.flagged?(0, 0)).to eq(false)
+        end
+    end
+
     describe '#bomb_revealed?' do
         it 'returns false if no bombs are revealed' do
             board.grid[0][0].reveal

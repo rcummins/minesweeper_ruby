@@ -63,6 +63,10 @@ class Board
         @grid[row][column].flag
     end
 
+    def flagged?(row, column)
+        @grid[row][column].flagged?
+    end
+
     def bomb_revealed?
         @grid.flatten.any? { |tile| tile.has_bomb? && tile.revealed? }
     end

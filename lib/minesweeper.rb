@@ -14,8 +14,12 @@ class Minesweeper
         action, row, column = get_user_input
 
         if action == 'r'
-            @board.reveal_tile_and_neighbors(row, column)
-        else
+            if @board.flagged?(row, column)
+                puts "You must unflag this tile before you can reveal it"
+            else
+                @board.reveal_tile_and_neighbors(row, column)
+            end
+        elsif action == 'f'
             @board.flag_tile(row, column)
         end
     end
