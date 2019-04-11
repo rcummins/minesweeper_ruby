@@ -77,6 +77,11 @@ class Board
     end
 
     def reveal_whole_board
+        # unflag all flagged tiles
+        flagged_tiles = @grid.flatten.select { |tile| tile.flagged? }
+        flagged_tiles.each { |tile| tile.flag }
+
+        # reveal all the tiles
         @grid.flatten.each { |tile| tile.reveal }
     end
 
