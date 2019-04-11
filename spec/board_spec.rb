@@ -55,4 +55,35 @@ describe 'Board' do
             expect(board.bomb_count).to eq(2)
         end
     end
+
+    describe '#bomb_revealed?' do
+        it 'returns false if no bombs are revealed' do
+            board.grid[0][0].reveal
+            expect(board.bomb_revealed?).to eq(false)
+        end
+
+        it 'returns true if a bomb is revealed' do
+            board.grid[0][0].add_bomb
+            board.grid[0][0].reveal
+            expect(board.bomb_revealed?).to eq(true)
+        end
+    end
+
+    describe '#all_bomb_free_tiles_revealed?' do
+        it 'returns false if some bomb-free tiles are not revealed' do
+            board.grid[0][0].add_bomb
+            board.grid[0][1].reveal
+            expect(board.all_bomb_free_tiles_revealed?).to eq(false)
+        end
+
+        it 'returns true if all bomb-free tiles are revealed' do
+            board.grid[0][0].add_bomb
+            (0..8).each do |row|
+                (0..8).each do |column|
+                    board.grid[row][column].reveal unless row==0 && column==0
+                end
+            end
+            expect(board.all_bomb_free_tiles_revealed?).to eq(true)
+        end
+    end
 end

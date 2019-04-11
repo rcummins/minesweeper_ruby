@@ -59,6 +59,15 @@ class Board
         tiles_to_reveal.each { |tile| tile.reveal }
     end
 
+    def bomb_revealed?
+        @grid.flatten.any? { |tile| tile.has_bomb? && tile.revealed? }
+    end
+
+    def all_bomb_free_tiles_revealed?
+        bomb_free_tiles = @grid.flatten.reject { |tile| tile.has_bomb? }
+        return bomb_free_tiles.all? { |tile| tile.revealed? }
+    end
+
     def reveal_whole_board
         @grid.flatten.each { |tile| tile.reveal }
     end
