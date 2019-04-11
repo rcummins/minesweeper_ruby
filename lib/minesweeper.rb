@@ -16,6 +16,18 @@ class Minesweeper
         @board.display
     end
 
+    def lost?
+        @board.bomb_revealed?
+    end
+
+    def won?
+        @board.all_bomb_free_tiles_revealed?
+    end
+
+    def game_over?
+        lost? || won?
+    end
+
     def display_when_game_over
         @board.reveal_whole_board
         @board.display
