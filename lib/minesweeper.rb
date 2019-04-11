@@ -10,20 +10,28 @@ class Minesweeper
 
     def take_turn
         @board.display
-        row, column = get_user_input
-        @board.reveal_tile_and_neighbors(row, column)
+
+        action, row, column = get_user_input
+
+        if action == 'r'
+            @board.reveal_tile_and_neighbors(row, column)
+        else
+            @board.flag_tile(row, column)
+        end
     end
 
     def get_user_input
-        print "Enter a row number and column number separated by a comma: "
+        print "Enter action (r=reveal, f=flag/unflag) row, column (ex: r2,3): "
         return parse_input(gets.chomp)
     end
 
     def parse_input(input)
-        row_column = input.split(',').map(&:to_i)
+        action = input[0].downcase
+        raise('Incorrect action code') unless ['r', 'f'].include?(action)
+        row_column = input[1..-1].split(',').map(&:to_i)
         raise('Incorrect format') if row_column.length != 2
         raise('Invalid location') if row_column.min < 0 || row_column.max > 8
-        return row_column
+        return [action] + row_column
     end
 
     def lost?
