@@ -3,8 +3,6 @@
 require_relative 'board'
 
 class Minesweeper
-    attr_accessor :board # for testing purposes
-
     def initialize
         @board = Board.new
         @board.add_bombs_to_grid
@@ -12,8 +10,20 @@ class Minesweeper
 
     def take_turn
         @board.display
-        @board.reveal_tile_and_neighbors(0, 0)
-        @board.display
+        row, column = get_user_input
+        @board.reveal_tile_and_neighbors(row, column)
+    end
+
+    def get_user_input
+        print "Enter a row number and column number separated by a comma: "
+        return parse_input(gets.chomp)
+    end
+
+    def parse_input(input)
+        row_column = input.split(',').map(&:to_i)
+        raise('Incorrect format') if row_column.length != 2
+        raise('Invalid location') if row_column.min < 0 || row_column.max > 8
+        return row_column
     end
 
     def lost?
