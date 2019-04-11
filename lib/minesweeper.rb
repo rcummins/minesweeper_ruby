@@ -8,10 +8,12 @@ class Minesweeper
         @board.add_bombs_to_grid
     end
 
-    def take_turn
+    def draw_board
         @board.display
+    end
 
-        action, row, column = get_user_input
+    def respond_to_input(user_input)
+        action, row, column = user_input
 
         if action == 'r'
             if @board.flagged?(row, column)

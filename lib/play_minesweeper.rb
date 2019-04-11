@@ -5,7 +5,9 @@ require_relative 'minesweeper'
 game = Minesweeper.new
 
 until game.game_over?
-    game.take_turn
+    game.draw_board
+    user_input = game.get_user_input
+    game.respond_to_input(user_input)
 end
 
 if game.won?
