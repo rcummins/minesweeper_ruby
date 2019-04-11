@@ -59,6 +59,10 @@ class Board
         tiles_to_reveal.each { |tile| tile.reveal }
     end
 
+    def flag_tile(row, column)
+        @grid[row][column].flag
+    end
+
     def bomb_revealed?
         @grid.flatten.any? { |tile| tile.has_bomb? && tile.revealed? }
     end

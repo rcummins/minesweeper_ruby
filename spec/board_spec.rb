@@ -56,6 +56,20 @@ describe 'Board' do
         end
     end
 
+    describe '#flag_tile' do
+        it 'flags a tile if it was previously unflagged' do
+            board.flag_tile(0, 0)
+            expect(board.grid[0][0].flagged?).to eq(true)
+        end
+
+        it 'unflags a tile if it was previously flagged' do
+            board.grid[0][0].flag
+            expect(board.grid[0][0].flagged?).to eq(true)
+            board.flag_tile(0, 0)
+            expect(board.grid[0][0].flagged?).to eq(false)
+        end
+    end
+
     describe '#bomb_revealed?' do
         it 'returns false if no bombs are revealed' do
             board.grid[0][0].reveal
