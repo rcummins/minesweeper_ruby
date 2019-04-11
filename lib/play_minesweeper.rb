@@ -6,8 +6,9 @@ game = Minesweeper.new
 
 until game.game_over?
     game.draw_board
-    user_input = game.get_user_input
-    game.respond_to_input(user_input)
+    action = game.get_action_from_user
+    location = game.get_location_from_user
+    game.reveal_or_flag(action, location)
 end
 
 if game.won?

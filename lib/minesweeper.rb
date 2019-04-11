@@ -12,8 +12,8 @@ class Minesweeper
         @board.display
     end
 
-    def respond_to_input(user_input)
-        action, row, column = user_input
+    def reveal_or_flag(action, location)
+        row, column = location
 
         if action == 'r'
             if @board.flagged?(row, column)
@@ -26,18 +26,27 @@ class Minesweeper
         end
     end
 
-    def get_user_input
-        print "Enter action (r=reveal, f=flag/unflag) row, column (ex: r2,3): "
-        return parse_input(gets.chomp)
+    def get_action_from_user
+        print "Enter action code (r=reveal, f=flag/unflag, s=save game): "
+        return parse_action_input(gets.chomp)
     end
 
-    def parse_input(input)
-        action = input[0].downcase
-        raise('Incorrect action code') unless ['r', 'f'].include?(action)
-        row_column = input[1..-1].split(',').map(&:to_i)
-        raise('Incorrect format') if row_column.length != 2
-        raise('Invalid location') if row_column.min < 0 || row_column.max > 8
-        return [action] + row_column
+    def get_location_from_user
+        print "Enter the row and column separated by a comma (ex: 1,2) : "
+        return parse_location_input(gets.chomp)
+    end
+
+    def parse_action_input(input)
+        action = input.downcase
+        raise('Incorrect action code') unless ['r', 'f', 's'].include?(action)
+        return action
+    end
+
+    def parse_location_input(input)
+        location = input.split(',').map(&:to_i)
+        raise('Incorrect format') if location.length != 2
+        raise('Invalid location') if location.min < 0 || location.max > 8
+        return location
     end
 
     def lost?
