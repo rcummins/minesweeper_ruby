@@ -1,14 +1,22 @@
 # play the minesweeper game
 
+require 'yaml'
 require_relative 'minesweeper'
 
 game = Minesweeper.new
 
 until game.game_over?
     game.draw_board
+
     action = game.get_action_from_user
-    location = game.get_location_from_user
-    game.reveal_or_flag(action, location)
+
+    if action == 's'
+        file_name = game.get_file_name_from_user + '.txt'
+        File.open(file_name, 'w') { |f| f.puts game.to_yaml }
+    else
+        location = game.get_location_from_user
+        game.reveal_or_flag(action, location)
+    end
 end
 
 if game.won?

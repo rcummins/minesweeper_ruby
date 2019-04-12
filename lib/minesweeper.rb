@@ -31,6 +31,11 @@ class Minesweeper
         return parse_action_input(gets.chomp)
     end
 
+    def get_file_name_from_user
+        print "Enter a file name to use to save the game (no extension): "
+        return gets.chomp
+    end
+
     def get_location_from_user
         print "Enter the row and column separated by a comma (ex: 1,2) : "
         return parse_location_input(gets.chomp)
