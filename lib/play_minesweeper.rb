@@ -3,7 +3,11 @@
 require 'yaml'
 require_relative 'minesweeper'
 
-game = Minesweeper.new
+if ARGV.empty?
+    game = Minesweeper.new
+else
+    game = YAML.load(File.read(ARGV.shift))
+end
 
 until game.game_over?
     game.draw_board
